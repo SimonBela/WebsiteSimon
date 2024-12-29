@@ -1,0 +1,25 @@
+---
+const videos = [
+  { id: "1042641805", title: "Video 1" },
+  { id: "1042642082", title: "Video 2" },
+  { id: "930028771", title: "Video 3" },
+  { id: "930309191/dc8f77f107", title: "Video 4" }
+];
+---
+<section id="work" class="py-12 bg-gradient-to-b from-dark via-purple-900/20 to-dark">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {videos.map(video => (
+        <div class="aspect-video w-full rounded-xl overflow-hidden">
+          <iframe
+            src={`https://player.vimeo.com/video/${video.id}?title=0&byline=0&portrait=0`}
+            class="w-full h-full"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { translations } from '../i18n/translations';
+
+const currentLang = Astro.url.searchParams.get('lang') || 'fr';
+const t = translations[currentLang];
+
+const links = [
+  { href: "#work", label: t.nav.work },
+  { href: "#services", label: t.nav.services },
+  { href: "#contact", label: t.nav.contact }
+];
+---
+<nav class="fixed w-full bg-black/50 backdrop-blur-md z-50 py-4">
+  <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+    <a href="/" class="text-2xl font-bold text-gradient">Simon Bélanger</a>
+    <div class="flex items-center gap-8">
+      {links.map(link => (
+        <a 
+          href={link.href} 
+          class="text-purple-200 hover:text-white transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+      <LanguageSwitcher currentLang={currentLang} />
+    </div>
+  </div>
+</nav>

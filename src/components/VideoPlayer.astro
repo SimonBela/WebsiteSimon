@@ -1,0 +1,47 @@
+---
+interface Props {
+  videoUrl: string;
+  title: string;
+}
+
+const { videoUrl, title } = Astro.props;
+
+// Function to get video ID from URL
+const getVideoId = (url: string) => {
+  // Vimeo
+  const vimeoRegex = /vimeo\.com\/([0-9]+)/;
+  const vimeoMatch = url.match(vimeoRegex);
+  if (vimeoMatch) return { type: 'vimeo', id: vimeoMatch[1] };
+  
+  // YouTube
+  const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+  const youtubeMatch = url.match(youtubeRegex);
+  if (youtubeMatch) return { type: 'youtube', id: youtubeMatch[1] };
+  
+  return null;
+};
+
+const videoData = getVideoId(videoUrl);
+---
+
+<div class="relative aspect-video w-full overflow-hidden rounded-xl">
+  {videoData?.type === 'youtube' && (
+    <iframe
+      src={`https://www.youtube.com/embed/${videoData.id}`}
+      title={title}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      class="absolute inset-0 w-full h-full"
+    ></iframe>
+  )}
+  
+  {videoData?.type === 'vimeo' && (
+    <iframe
+      src={`https://player.vimeo.com/video/${videoData.id}`}
+      title={title}
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen
+      class="absolute inset-0 w-full h-full"
+    ></iframe>
+  )}
+</div>

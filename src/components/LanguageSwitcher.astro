@@ -1,0 +1,29 @@
+---
+const { currentLang } = Astro.props;
+---
+<div class="flex gap-2 items-center">
+  <button
+    class={`px-2 py-1 rounded ${currentLang === 'fr' ? 'bg-purple-500 text-white' : 'text-purple-200'}`}
+    data-lang="fr"
+  >
+    FR
+  </button>
+  <button
+    class={`px-2 py-1 rounded ${currentLang === 'en' ? 'bg-purple-500 text-white' : 'text-purple-200'}`}
+    data-lang="en"
+  >
+    EN
+  </button>
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('[data-lang]');
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const lang = button.getAttribute('data-lang');
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('lang', lang);
+      window.location.reload();
+    });
+  });
+</script>

@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Navigation from '../components/Navigation.astro';
+import ServicesSection from '../components/ServicesSection.astro';
+import WorkSection from '../components/WorkSection.astro';
+import { translations } from '../i18n/translations';
+
+const currentLang = Astro.url.searchParams.get('lang') || 'fr';
+const t = translations[currentLang];
+---
+
+<Layout title="Simon Bélanger - Production Vidéo" lang={currentLang}>
+  <Navigation />
+  <main class="bg-dark">
+    <Hero />
+    <WorkSection />
+    <ServicesSection />
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-dark">
+      <div class="max-w-3xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-gradient text-center mb-12">{t.contact.title}</h2>
+        <form class="space-y-6 bg-black/30 backdrop-blur-sm p-8 rounded-2xl border border-purple-500/20">
+          <div>
+            <label for="name" class="block text-purple-200 mb-2">{t.contact.name}</label>
+            <input 
+              type="text" 
+              id="name" 
+              class="w-full px-4 py-2 rounded-lg bg-black/50 text-white border border-purple-500/30 focus:border-purple-500 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-purple-200 mb-2">{t.contact.email}</label>
+            <input 
+              type="email" 
+              id="email" 
+              class="w-full px-4 py-2 rounded-lg bg-black/50 text-white border border-purple-500/30 focus:border-purple-500 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label for="message" class="block text-purple-200 mb-2">{t.contact.project}</label>
+            <textarea 
+              id="message" 
+              rows="4" 
+              class="w-full px-4 py-2 rounded-lg bg-black/50 text-white border border-purple-500/30 focus:border-purple-500 focus:outline-none"
+            ></textarea>
+          </div>
+          <button 
+            type="submit" 
+            class="w-full bg-gradient-custom text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+          >
+            {t.contact.send}
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+</Layout>

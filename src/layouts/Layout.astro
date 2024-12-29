@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  lang: string;
+}
+
+const { title, lang = 'fr' } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Simon Bélanger - Creative Video Production and Visual Arts" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-dark">
+    <slot />
+    <footer class="bg-black/50 backdrop-blur-sm text-purple-200 py-8">
+      <div class="max-w-6xl mx-auto px-4 text-center">
+        <p>&copy; {new Date().getFullYear()} Simon Bélanger. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/theme.css';
+  
+  html {
+    font-family: 'Space Grotesk', sans-serif;
+    background: rgb(var(--dark));
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+</style>
